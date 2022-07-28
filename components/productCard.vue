@@ -1,0 +1,47 @@
+<template>
+    <div class="product-card">
+        <img src="https://kickgoods.ru/upload/iblock/4eb/1031708_mrp_in_l332.jpg" alt="" class="product-card__image">
+        <div class="product-card__content">
+            <h4 class="product-card__name">Наименование товара</h4>
+            <p class="product-card__description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
+            <p class="product-card__price">10 000 руб.</p>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+
+    }
+</script>
+
+<style lang="scss" scoped>
+    .product-card{
+        width: 332px;
+        background: #FFFEFB;
+        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
+        border-radius: 4px;
+
+        &__content{
+            margin: 0 16px;
+        }
+        &__image{
+            width: 100%;
+        }
+        &__name{
+            margin: 16px 0 16px;
+            font-size: 20px;
+            line-height: 25px;
+        }
+        &__description{
+            margin-bottom: 32px;
+            font-size: 16px;
+            line-height: 20px;
+        }
+        &__price{
+            padding-bottom: 24px;
+            font-size: 24px;
+            line-height: 30px;
+        }
+    }
+</style>
