@@ -24,10 +24,11 @@
     .text-field{
 
         color: #49485E;
+        padding: 0 24px;
+        margin-top:16px;
 
         &__label{
-            margin-bottom: 4px;
-            display: block;
+            margin-bottom: 4px ;
             font-size: 10px;
             display: flex;
             line-height: 13px;
@@ -43,13 +44,15 @@
         }
 
         &__input{
-            width: 100%;
-            padding: 0 24px;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
             border: none;
             background-color: #FFFEFB;
             height: 36px;
+            width: 100%;
+            padding: 0 0 0 16px;
+            box-sizing: border-box;
+            outline: none;
         }
 
     }
