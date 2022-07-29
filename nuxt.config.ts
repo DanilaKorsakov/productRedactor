@@ -7,6 +7,4 @@ export default defineNuxtConfig({
         '@/node_modules/normalize.css/normalize.css'
     ],
 
-
-
 })
