@@ -1,21 +1,32 @@
 <template>
     <div class="product-card">
-        <img src="https://kickgoods.ru/upload/iblock/4eb/1031708_mrp_in_l332.jpg" alt="" class="product-card__image">
+        <img :src="card.src" alt="" class="product-card__image">
         <div class="product-card__content">
-            <h4 class="product-card__name">Наименование товара</h4>
-            <p class="product-card__description">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-            <p class="product-card__price">10 000 руб.</p>
+            <h4 class="product-card__name">{{card.name}}</h4>
+            <p class="product-card__description">{{card.description}}</p>
+            <p class="product-card__price">{{card.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}} руб. </p>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
 
+    export default {
+        props:{
+            card:{
+                type:Object,
+                required:true
+            }
+        },
+        setup(props) {
+
+        }
     }
+
 </script>
 
 <style lang="scss" scoped>
+
     .product-card{
         width: 332px;
         background: #FFFEFB;
@@ -44,4 +55,5 @@
             line-height: 30px;
         }
     }
+
 </style>
