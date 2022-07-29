@@ -1,7 +1,7 @@
 <template>
   <div>
-    <productCard v-for="product in cards" :card="product" />
     <productAddForm />
+    <productCard v-for="product in cards" :card="product" />
   </div>
 </template>
 

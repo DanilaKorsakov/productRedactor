@@ -23,8 +23,6 @@
 
     .text-field{
 
-        color: #49485E;
-        padding: 0 24px;
         margin-top:16px;
 
         &__label{
@@ -53,6 +51,8 @@
             padding: 0 0 0 16px;
             box-sizing: border-box;
             outline: none;
+            font-size: 12px;
+            line-height: 15px;
         }
 
     }
