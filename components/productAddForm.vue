@@ -4,6 +4,7 @@
         <textArea/>
         <textFields :inputOptions="{label:'Ссылка на изображение товара',placeholder:'Введите ссылку'}"/>
         <textFields :inputOptions="{label:'Цена товара',placeholder:'Введите цену'}"/>
+        <formBtn/>
     </form>
 </template>
 
