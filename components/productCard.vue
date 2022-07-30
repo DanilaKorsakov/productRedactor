@@ -33,14 +33,15 @@
 <style lang="scss" scoped>
 
     .product-card{
-        width: 332px;
+        width: 20.75em;
         background: #FFFEFB;
-        box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
-        border-radius: 4px;
+        box-shadow: 0px 1.25em 1.875em rgba(0, 0, 0, 0.04), 0px 0.375em 0.625em rgba(0, 0, 0, 0.02);
+        border-radius: 0.25em;
         position: relative;
+        margin: 1em 0 0 1em;
 
         &__content{
-            margin: 0 16px;
+            margin: 0 1em;
         }
 
         &__image{
@@ -48,33 +49,34 @@
         }
 
         &__name{
-            margin: 16px 0 16px;
-            font-size: 20px;
-            line-height: 25px;
+            margin: 0.8em 0 0.8em;
+            font-size: 1.25em;
+            line-height: 1.25em;
         }
 
         &__description{
-            margin-bottom: 32px;
-            font-size: 16px;
-            line-height: 20px;
+            margin-bottom: 2em;
+            font-size: 1em;
+            line-height: 1.25em;
         }
 
         &__price{
-            padding-bottom: 24px;
-            font-size: 24px;
-            line-height: 30px;
+            padding-bottom: 1em;
+            font-size: 1.5em;
+            line-height: 1.25em;
+            margin-bottom: 0;
         }
 
        &__delete-btn{
             background-color: #FF8484;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            box-shadow: 0px 0.125em 0.25em rgba(0, 0, 0, 0.1);
+            border-radius: 0.625em;
             border:none;
-            width: 32px;
-            height: 32px;
+            width: 2em;
+            height: 2em;
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -0.5em;
+            right: -0.5em;
             opacity: 0;
             transition: 0.6s ease-in-out;
         }
@@ -89,5 +91,11 @@
         }
     }
 
+
+    @media (max-width: 590px){
+        .product-card{
+            margin: 1.5em auto 0 auto;
+        }
+    }
 
 </style>

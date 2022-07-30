@@ -19,26 +19,26 @@
 
     .text-area{
 
-        margin-top:16px;
+        margin-top:1em;
 
         &__label{
-            margin-bottom: 4px ;
-            font-size: 10px;
+            margin-bottom: 0.4em ;
+            font-size: 0.625em;
             display: block;
-            line-height: 13px;
+            line-height: 1.3em;
         }
 
         &__description{
-            font-size: 12px;
-            line-height: 15px;
+            font-size: 0.75em;
+            line-height: 1.25em;
             outline: none;
             background-color: #FFFEFB;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
+            box-shadow: 0px 0.17em 0.42em rgba(0, 0, 0, 0.1);
+            border-radius: 0.3em;
             border: none;
             width: 100%;
-            height: 108px;
-            padding: 10px 0 0 16px;
+            height: 9em;
+            padding: 0.83em 0 0 1.3em;
             box-sizing: border-box;
             resize: none;
         }

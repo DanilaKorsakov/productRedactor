@@ -23,36 +23,36 @@
 
     .text-field{
 
-        margin-top:16px;
+        margin-top:1em;
 
         &__label{
-            margin-bottom: 4px ;
-            font-size: 10px;
+            margin-bottom: 0.4em ;
+            font-size: 0.625em;
             display: flex;
-            line-height: 13px;
+            line-height: 1.3em;
         }
 
         &__label::after{
             content: '';
             display: block;
-            width: 4px;
-            height: 4px;
+            width: 0.4em;
+            height: 0.4em;
             background: #FF8484;
             border-radius: 50%;
         }
 
         &__input{
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
+            box-shadow: 0px 0.17em 0.42em rgba(0, 0, 0, 0.1);
+            border-radius: 0.3em;
             border: none;
             background-color: #FFFEFB;
-            height: 36px;
+            height: 3em;
             width: 100%;
-            padding: 0 0 0 16px;
+            padding: 0 0 0 1.3em;
             box-sizing: border-box;
             outline: none;
-            font-size: 12px;
-            line-height: 15px;
+            font-size: 0.75em;
+            line-height: 1.25em;
         }
 
     }

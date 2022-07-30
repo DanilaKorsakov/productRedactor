@@ -1,10 +1,24 @@
 <template>
-    <button disabled class="form-btn">Добавить товар</button>
+    <button :disabled="isDisabled" :class="{disabled:isDisabled}"  class="form-btn">Добавить товар</button>
 </template>
 
 <script>
 
     export default {
+
+        props:{
+            isDisabled:{
+                type:Boolean
+            }
+        },
+
+        setup(){
+
+            return{
+
+            }
+
+        }
 
     }
 
@@ -12,14 +26,20 @@
 
 <style scoped>
     .form-btn{
-        height: 36px;
+        height: 3em;
         width: 100%;
-        background-color: #EEEEEE;
-        border-radius: 10px;
+        background-color: #7BAE73;
+        border-radius: 0.83em;
         border: none;
-        margin-top: 24px;
-        font-size: 12px;
-        line-height: 15px;
+        margin-top: 2em;
+        font-size: 0.75em;
+        line-height: 1.25em;
         cursor: pointer;
+        color: #FFFFFF;
+    }
+
+    .disabled{
+        background-color: #EEEEEE;
+        color:#B4B4B4;
     }
 </style>

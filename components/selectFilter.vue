@@ -55,28 +55,29 @@
 <style scoped lang="scss">
     .select-filter{
 
-        font-size: 12px;
-        line-height: 15px;
+        font-size: 0.75em;
+        line-height: 1.25em;
         color: #B4B4B4;
         position: relative;
         cursor: pointer;
-        width: 180px;
+        width: 15em;
+        z-index: 2;
 
         &__header{
             display: flex;
-            height: 36px;
+            height: 3em;
             background-color: #FFFEFB;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0.17em 0.42em rgba(0, 0, 0, 0.1);
             text-align: center;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 1.3em;
             justify-content: center;
         }
 
         &__body{
             position: absolute;
             background-color: #FFFEFB;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0.17em 0.42em rgba(0, 0, 0, 0.1);
             border-top: none;
             width: inherit;
             box-sizing: border-box;
@@ -85,7 +86,7 @@
 
         &__item{
             transition: 0.2s ease-in-out;
-            padding: 0 0 0 16px;
+            padding: 0 0 0 1.3em;
         }
 
         &__item:hover{
@@ -93,7 +94,7 @@
         }
 
         &__icon{
-            margin-left: 5px;
+            margin-left: 0.42em;
         }
 
         .active{
