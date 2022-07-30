@@ -1,5 +1,5 @@
 <template>
-    <div class="select-filter" @click="isActive=!isActive">
+    <div class="select-filter" @click="openFilter">
         <div class="select-filter__header">
             <span class="select-filter__current">{{selected}}</span>
             <div class="select-filter__icon">
@@ -9,9 +9,7 @@
             </div>
         </div>
         <div class="select-filter__body" @click="changeHeader" :class="{active:isActive}">
-            <div class="select-filter__item">От меньшего к большему</div>
-            <div class="select-filter__item">От большего к меньшему</div>
-            <div class="select-filter__item">По наименованию</div>
+            <div class="select-filter__item" v-for="item in filterItem">{{item}}</div>
         </div>
     </div>
 </template>
@@ -24,6 +22,18 @@
 
             const selected=ref('По умолчанию');
             const isActive=ref(false);
+            const filterItem=ref(
+                [
+                    'От меньшего к большему',
+                    'От большего к меньшему',
+                    'По наименованию'
+                ]
+            )
+
+            const openFilter = ()=>{
+                isActive.value=!isActive.value;
+            }
+
 
             const changeHeader=(e)=>{
                selected.value=e.target.textContent;
@@ -32,6 +42,8 @@
             return{
                 selected,
                 isActive,
+                filterItem,
+                openFilter,
                 changeHeader
             }
         }
@@ -55,7 +67,6 @@
             height: 36px;
             background-color: #FFFEFB;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
             text-align: center;
             align-items: center;
             padding: 0 16px;
@@ -63,12 +74,10 @@
         }
 
         &__body{
-            padding: 0 16px;
             position: absolute;
             background-color: #FFFEFB;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             border-top: none;
-            border-radius: 4px;
             width: inherit;
             box-sizing: border-box;
             display: none;
@@ -76,6 +85,7 @@
 
         &__item{
             transition: 0.2s ease-in-out;
+            padding: 0 0 0 16px;
         }
 
         &__item:hover{

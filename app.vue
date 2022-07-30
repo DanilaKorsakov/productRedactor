@@ -1,8 +1,9 @@
 <template>
   <div>
+    <selectFilter/>
     <productAddForm />
     <productCard v-for="product in cards" :card="product" />
-    <selectFilter/>
+
   </div>
 </template>
 
