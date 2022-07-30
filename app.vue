@@ -7,17 +7,17 @@
     </header>
 
     <main class="main-content">
-      <productAddForm />
+      <productAddForm
+        @createProduct="createProduct"
+      />
       <div class="main-content__products">
-        <productCard v-for="product in cards" :card="product" />
+        <productCard v-for="(product,index) in cards" :card="product" />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-
-  import {ref} from ".nuxt/imports";
 
   export default {
 
@@ -30,35 +30,15 @@
           description:'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
           price:10000,
         },
-        {
-          src:'https://kickgoods.ru/upload/iblock/4eb/1031708_mrp_in_l332.jpg',
-          name:'Наименование товара',
-          description:'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price:10000,
-        },
-        {
-          src:'https://kickgoods.ru/upload/iblock/4eb/1031708_mrp_in_l332.jpg',
-          name:'Наименование товара',
-          description:'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price:10000,
-        },
-        {
-          src:'https://kickgoods.ru/upload/iblock/4eb/1031708_mrp_in_l332.jpg',
-          name:'Наименование товара',
-          description:'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price:10000,
-        },
-        {
-          src:'https://kickgoods.ru/upload/iblock/4eb/1031708_mrp_in_l332.jpg',
-          name:'Наименование товара',
-          description:'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price:10000,
-        },
       ]);
 
+      const createProduct = (product) =>{
+         cards.value.push(product);
+      }
 
       return{
         cards,
+        createProduct
       }
     }
 

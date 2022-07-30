@@ -2,7 +2,10 @@
 
     <div class="text-area">
         <label for="description" class="text-area__label">Описание товара</label>
-        <textarea id="description" class="text-area__description" maxlength="100" placeholder="Введите описание товара"></textarea>
+        <textarea id="description" class="text-area__description" maxlength="100" placeholder="Введите описание товара"
+                  :value="description"
+                  @input="$emit('update:description',$event.target.value)"
+        ></textarea>
     </div>
 
 </template>
@@ -10,6 +13,12 @@
 <script>
 
     export default {
+
+        props:{
+          description:String
+        },
+
+        emits:['update:description'],
 
     }
 

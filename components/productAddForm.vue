@@ -1,27 +1,86 @@
 <template>
     <form class="add-product-form" action="">
-        <textFields :style="{marginTop:'0'}" :inputOptions="{label:'Наименование товара',placeholder:'Введите наименование товара'}"/>
-        <textArea/>
-        <textFields :inputOptions="{label:'Ссылка на изображение товара',placeholder:'Введите ссылку'}"/>
-        <textFields :inputOptions="{label:'Цена товара',placeholder:'Введите цену'}"/>
-        <formBtn :isDisabled="isDisabled"/>
+        <textFields
+                :style="{marginTop:'0'}"
+                :inputOptions="{label:'Наименование товара',placeholder:'Введите наименование товара',type:'text'}"
+                v-model:text="name"
+        />
+        <textArea
+                v-model:description="description"
+        />
+        <textFields
+                :inputOptions="{label:'Ссылка на изображение товара',placeholder:'Введите ссылку',type:'text'}"
+                v-model:text="link"
+        />
+        <textFields
+                :inputOptions="{label:'Цена товара',placeholder:'Введите цену',type:'number'}"
+                v-model:text="price"
+        />
+        <formBtn :isDisabled="isDisabled" @click.prevent="createNewProduct"/>
     </form>
 </template>
 
 <script>
 
-    export default {
+    import {ref} from "../.nuxt/imports";
 
-        setup(){
+    export default ({
+
+        setup: function (props, { emit }){
 
             const isDisabled = ref (true);
 
+            const name = ref('');
+            const description = ref ('');
+            const link = ref('');
+            const price = ref();
+
+            const product = ref ({
+                src:link,
+                name:name,
+                description:description,
+                price:price
+            });
+
+            const createNewProduct = ()=>{
+
+                const card = ref({
+                    src:product.value.src,
+                    name:product.value.name,
+                    description:product.value.description,
+                    price:product.value.price,
+                })
+
+                emit('createProduct',card.value);
+
+                name.value='';
+                link.value='';
+                description.value='';
+                price.value='';
+            };
+
+            const onFormInputs = ()=>{
+                if(product.value.name.length>0 && product.value.src.length>0 && product.value.price>0 ){
+                    isDisabled.value=false;
+                }else{
+                    isDisabled.value=true;
+                }
+            };
+
+            watch (product.value, onFormInputs,{deep:true})
+
             return{
-                isDisabled
+                isDisabled,
+                name,
+                description,
+                link,
+                price,
+                product,
+                createNewProduct
             }
 
         }
-    }
+    })
 </script>
 
 <style scoped>

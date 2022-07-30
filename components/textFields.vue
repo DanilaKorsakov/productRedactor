@@ -1,7 +1,11 @@
 <template>
     <div class="text-field">
         <label class="text-field__label" for="product-input"> {{inputOptions.label}}</label>
-        <input type="text" class="text-field__input" :placeholder="inputOptions.placeholder" id="product-input">
+        <input :type="inputOptions.type" class="text-field__input" id="product-input"
+               :placeholder="inputOptions.placeholder"
+               :value="text"
+               @input="$emit('update:text',$event.target.value)"
+        >
     </div>
 </template>
 
@@ -13,13 +17,36 @@
             inputOptions:{
                 type:Object,
                 required:true
+            },
+            text:String,
+        },
+
+        emits:['update:text'],
+
+        setup(){
+
+            return{
+
             }
         }
+
     }
 
 </script>
 
 <style scoped lang="scss">
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none; // Yeah, yeah everybody write about it
+    }
+
+    input[type='number'],
+    input[type="number"]:hover,
+    input[type="number"]:focus {
+        appearance: none;
+        -moz-appearance: textfield;
+    }
 
     .text-field{
 
