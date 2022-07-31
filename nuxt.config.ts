@@ -7,4 +7,11 @@ export default defineNuxtConfig({
         '@/node_modules/normalize.css/normalize.css'
     ],
 
+    styleResources: {
+        scss: [
+            '~assets/styles/_index.scss',
+            '~assets/mixins/_index.scss'
+        ]
+    }
+
 })

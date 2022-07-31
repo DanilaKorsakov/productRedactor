@@ -3,15 +3,16 @@
 
     <header class="header">
       <div class="header__logo">Добавление товара</div>
-      <selectFilter/>
+      <UiSelectFilter/>
     </header>
 
     <main class="main-content">
-      <productAddForm
+      <UiProductAddForm
         @createProduct="createProduct"
       />
       <div class="main-content__products">
-        <productCard v-for="(product,index) in cards" :card="product" />
+        <UiProductCard v-for="(product,index) in cards" :card="product" @product:delete="deleteProduct(index)" v-if="cards.length!==0" />
+        <div v-else class="main-content__no-products">Добавьте товар</div>
       </div>
     </main>
   </div>
@@ -19,26 +20,32 @@
 
 <script>
 
+  import UiProductCard from "./components/UiProductCard";
+  import {onMounted} from ".nuxt/imports";
   export default {
-
+    components: {UiProductCard},
     setup(){
 
-      const cards = ref([
-        {
-          src:'https://kickgoods.ru/upload/iblock/4eb/1031708_mrp_in_l332.jpg',
-          name:'Наименование товара',
-          description:'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-          price:10000,
-        },
-      ]);
+      const cards = ref([]);
 
       const createProduct = (product) =>{
          cards.value.push(product);
+         localStorage.setItem("cards",JSON.stringify(cards.value));
       }
+
+      const deleteProduct = (productIndex)=>{
+        cards.value.splice(productIndex,1);
+        localStorage.setItem("cards",JSON.stringify(cards.value));
+      }
+
+      onMounted(()=>{
+        cards.value=JSON.parse(localStorage.getItem("cards")) || []
+      });
 
       return{
         cards,
-        createProduct
+        createProduct,
+        deleteProduct
       }
     }
 
@@ -48,124 +55,118 @@
 
 <style lang="scss">
 
-  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
-
-  html{
-    font-size: 16px;
-  }
+  @import "assets/styles/index";
+  @import "assets/mixins/index";
 
   body{
     font-family: 'Source Sans Pro', sans-serif;
     color: #3F3F3F;
   }
-
-  .container{
-    margin: 0 2em;
-  }
-
-  .header{
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2em  0 1em 0;
-
-
-    &__logo{
-      font-weight: 600;
-      font-size: 1.75em;
-      line-height: 2.1875em;
+  @media only screen and (min-width: 320px) {
+    .container{
+      margin: 0 rem(10);
     }
 
-  }
-
-  .main-content{
-    display: flex;
-
-    &__products{
-      display: flex;
-      flex-wrap: wrap;
-      margin: -1em 0 0 -1em;
-    }
-
-  }
-  
-  @media (max-width: 1444px) {
-      html{
-        font-size: 14px;
-      }
-  }
-
-  @media (max-width: 1250px) {
-    html{
-      font-size: 12px;
-    }
-  }
-
-  @media (max-width: 1060px) {
     .header{
-      font-size: 1.2em;
-    }
-    .main-content{
+
       display: flex;
-      justify-content: center;
-      font-size: 1.2em;
+      justify-content: space-between;
+      align-items: center;
+      margin: rem(32)  0 rem(16) 0;
+
+
+      &__logo{
+        font-weight: 600;
+        font-size: rem(15);
+        line-height: rem(22);
+      }
+
+    }
+
+    .main-content{
+
+      &__no-products{
+        font-weight: 600;
+        font-size: rem(15);
+        line-height: rem(22);
+        opacity: 0.8;
+      }
 
       &__products{
-          width: 65%;
+        margin-top: rem(10);
+
+         .product-card:not(:last-child){
+          margin-bottom: rem(16);
+        }
       }
-
-    }
-  }
-
-  @media (max-width: 1006px){
-    .header{
-      font-size: 1em;
-    }
-    .main-content{
-      font-size: 1em;
     }
 
   }
 
+  @media only screen and (min-width: 600px) {
 
-  @media (max-width: 845px){
-    .header{
-      justify-content: space-around;
-      font-size: 1.2em;
+    .container{
+      margin: 0 rem(25);
     }
+
+    .header{
+      &__logo{
+        font-size: rem(20);
+        line-height: rem(30);
+      }
+    }
+
     .main-content {
+
       display: flex;
-      justify-content: center;
-      font-size: 1.2em;
-
-      &__products {
-        flex-direction: column;
-        width: 40%;
-      }
-
-    }
-  }
-
-  @media (max-width: 680px){
-    .header{
-      font-size: 1em;
-    }
-    .main-content{
-      font-size: 1em;
-    }
-  }
-
-  @media (max-width: 590px){
-    .main-content{
-      display: block;
 
       &__products{
-        display: block;
-        width: 100%;
-        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2,rem(200));
+        gap: rem(16);
+        margin-top: 0;
+
+        .product-card:not(:last-child){
+          margin-bottom: 0;
+        }
 
       }
+
+      &__no-products{
+        font-size: rem(20);
+        line-height: rem(30);
+      }
+
     }
+
   }
+
+  @media only screen and (min-width: 1024px) {
+
+    .container{
+      margin: 0 rem(32);
+    }
+
+    .header{
+      &__logo{
+        font-size: rem(28);
+        line-height: rem(35);
+      }
+    }
+
+    .main-content {
+
+      &__products{
+        grid-template-columns: repeat(4,rem(332));
+      }
+
+      &__no-products{
+        font-size: rem(28);
+        line-height: rem(35);
+      }
+
+    }
+
+  }
+
 </style>
