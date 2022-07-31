@@ -49,6 +49,7 @@
     @media only screen and (min-width: 320px) {
 
         .form-btn{
+
             height: rem(30);
             width: 100%;
             background-color: #7BAE73;
@@ -59,6 +60,12 @@
             line-height: rem(15);
             cursor: pointer;
             color: #FFFFFF;
+            transition: 0.5s ease-in-out;
+
+            &:hover:not(:disabled){
+                background-color: #FF7F50;
+            }
+
         }
 
         .disabled{

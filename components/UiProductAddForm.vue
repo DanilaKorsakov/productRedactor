@@ -18,10 +18,13 @@
         <UiTextField
                 :label="inputOptions.label='Цена товара'"
                 :placeholder="inputOptions.placeholder='Введите цену'"
-                :type="inputOptions.type='text'"
+                :type="inputOptions.type='number'"
                 v-model:text="product.price"
         />
         <UiFormBtn :isDisabled="isDisabled" @click.prevent="createNewProduct"/>
+
+        <div class="add-product-form__accomplished" v-show="accomplished"> Товар добавлен </div>
+
     </form>
 </template>
 
@@ -34,6 +37,8 @@
         setup: function (props, { emit }){
 
             const isDisabled = ref (true);
+
+            const accomplished = ref(false);
 
             const inputOptions = ref({
                     label:'',
@@ -55,6 +60,8 @@
                 product.value.name='';
                 product.value.description='';
                 product.value.price='';
+
+                accomplished.value = true;
             };
 
             const onFormInputs = ()=>{
@@ -71,6 +78,7 @@
                 isDisabled,
                 product,
                 inputOptions,
+                accomplished,
                 createNewProduct
             }
 
@@ -92,11 +100,20 @@
             padding: rem(20);
             box-sizing: border-box;
             height: fit-content;
+
+            &__accomplished{
+                text-align: center;
+                color: #7BAE73;
+                font-size: rem(12);
+                line-height: rem(15);
+                margin-top: rem(8);
+            }
         }
 
         .add-product-form .text-field:not(:first-child) {
             margin-top: 1em
         }
+
 
     }
 
@@ -105,6 +122,13 @@
             width: rem(332);
             padding: rem(24);
             margin-right: rem(16);
+
+            &__accomplished{
+                margin-top: rem(16);
+                font-size: rem(16);
+                line-height: rem(20);
+            }
+
         }
 
 

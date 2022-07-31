@@ -1,10 +1,10 @@
-# Nuxt 3 Minimal Starter
+# Добавление и удаление товаров
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Добавление товаров со значениями из полей формы, а также их удаление при нажатии на кнопку
 
-## Setup
+## Установка
 
-Make sure to install the dependencies:
+
 
 ```bash
 # yarn
@@ -17,26 +17,12 @@ npm install
 pnpm install --shamefully-hoist
 ```
 
-## Development Server
+## Сервер разработки
 
-Start the development server on http://localhost:3000
+Запуск сервера разработки по адресу http://localhost:3000
 
 ```bash
 npm run dev
 ```
 
-## Production
 
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
