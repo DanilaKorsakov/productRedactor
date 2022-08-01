@@ -11,10 +11,12 @@
         @createProduct="createProduct"
       />
       <div class="main-content__products" v-if="cards.length > 0">
-        <UiProductCard v-for="(product,index) in cards"
-                       :key="index"
-                       :card="product"
-                       @product:delete="deleteProduct(index)"/>
+        <TransitionGroup name="fade">
+          <UiProductCard v-for="(product,index) in cards"
+                         :key="product"
+                         :card="product"
+                         @product:delete="deleteProduct(index)"/>
+        </TransitionGroup>
       </div>
       <em v-else class="main-content__no-products">Список товаров пуст. Добавьте товар</em>
     </main>
@@ -135,6 +137,23 @@
       }
     }
 
+    .fade-enter-from{
+      opacity: 0;
+    }
+
+    .fade-leave-to{
+      opacity: 0;
+    }
+
+    .fade-move,
+    .fade-enter-active,
+    .fade-leave-active{
+      transition: all 1s ease-in-out;
+    }
+
+    .fade-leave-active {
+      position: absolute;
+    }
   }
 
   @media only screen and (min-width: 600px) {

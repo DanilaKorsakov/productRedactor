@@ -46,7 +46,7 @@
             });
 
             const isDisabled = ref (true);
-            const requiredFields = ['src', 'name', 'price']
+            const requiredFields = ['src', 'name', 'price'];
 
             const accomplished = ref(false);
 
@@ -57,8 +57,8 @@
             });
 
             const changeAccomplished = () =>{
-                accomplished.value=false
-            }
+                accomplished.value=false;
+            };
 
             const createNewProduct = ()=>{
                 // клонируем значение, т.к. оно реактивно

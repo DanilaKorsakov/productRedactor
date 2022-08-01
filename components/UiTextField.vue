@@ -35,9 +35,10 @@
 
             const onInput = (event) => {
                 emit('update:text', event.target.value)
-            }
+            };
+
             return{
-                onInput
+                onInput,
             }
         }
 
