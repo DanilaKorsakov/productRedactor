@@ -10,7 +10,8 @@
       <UiProductAddForm
         @createProduct="createProduct"
       />
-      <div class="main-content__products" v-if="cards.length > 0">
+      <UiPreloader v-if="isLoading"/>
+      <div class="main-content__products" v-else-if="cards.length > 0">
         <TransitionGroup name="fade">
           <UiProductCard v-for="(product,index) in cards"
                          :key="product"
@@ -31,8 +32,14 @@
 
       const cards = ref([]);
 
+      const isLoading=ref(true);
+
       const createProduct = (emitted) =>{
          cards.value.unshift(emitted.product);
+      }
+
+      const loadingProducts = ()=>{
+          setTimeout(()=>{isLoading.value=false},2000)
       }
 
       const deleteProduct = (productIndex)=>{
@@ -70,7 +77,8 @@
       }
 
       onMounted(()=>{
-        cards.value = JSON.parse(localStorage.getItem("cards")) || []
+        cards.value = JSON.parse(localStorage.getItem("cards")) || [];
+        loadingProducts();
       });
 
       watch(() => [...cards.value], () => {
@@ -79,9 +87,11 @@
 
       return{
         cards,
+        isLoading,
         createProduct,
         deleteProduct,
-        onChangeSort
+        onChangeSort,
+        loadingProducts
       }
     }
 
@@ -137,10 +147,7 @@
       }
     }
 
-    .fade-enter-from{
-      opacity: 0;
-    }
-
+    .fade-enter-from,
     .fade-leave-to{
       opacity: 0;
     }
