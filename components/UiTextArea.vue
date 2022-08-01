@@ -5,7 +5,7 @@
         <textarea id="description" class="text-area__description" maxlength="100" placeholder="Введите описание товара"
                   :value="description"
                   @input="$emit('update:description',$event.target.value)"
-        ></textarea>
+        />
     </div>
 
 </template>
@@ -26,7 +26,7 @@
 
 <style scoped lang="scss">
 
-    @import "assets/mixins/index";
+    @import "../assets/mixins/index";
 
     @media only screen and (min-width: 320px) {
         .text-area{

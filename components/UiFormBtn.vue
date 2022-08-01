@@ -1,5 +1,6 @@
 <template>
-    <button :disabled="isDisabled" :class="{disabled:isDisabled}"  class="form-btn">Добавить товар</button>
+    <button :disabled="isDisabled"
+            class="form-btn">Добавить товар</button>
 </template>
 
 <script>
@@ -26,7 +27,7 @@
 
 <style scoped lang="scss">
 
-    @import "assets/mixins/index";
+    @import "../assets/mixins/index";
 
     .form-btn{
         height: rem(36);
@@ -41,9 +42,13 @@
         color: #FFFFFF;
     }
 
-    .disabled{
+    .form-btn:disabled{
         background-color: #EEEEEE;
         color:#B4B4B4;
+
+        &:hover {
+            cursor: default;
+        }
     }
 
     @media only screen and (min-width: 320px) {

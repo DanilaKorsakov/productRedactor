@@ -8,8 +8,13 @@
                 </svg>
             </div>
         </div>
-        <div class="select-filter__body" @click="changeHeader" :class="{active:isActive}">
-            <div class="select-filter__item" v-for="item in filterItem">{{item}}</div>
+        <div class="select-filter__body"
+             :class="{active:isActive}">
+            <div class="select-filter__item"
+                 v-for="item in filterItem"
+                 :key="item.type"
+                 @click="changeSort(item.type)"
+            >{{item.text}}</div>
         </div>
     </div>
 </template>
@@ -18,15 +23,26 @@
 
     export default {
 
-        setup(){
+        emits: ['changeSort'],
+        setup(props, {emit}){
 
-            const selected=ref('По умолчанию');
+            const defaultSelected = 'По умолчанию';
+            const selected=ref(defaultSelected);
             const isActive=ref(false);
             const filterItem=ref(
                 [
-                    'От меньшего к большему',
-                    'От большего к меньшему',
-                    'По наименованию'
+                    {
+                        type: 'PRICE_ASC',
+                        text: 'От меньшего к большему'
+                    },
+                    {
+                        type: 'PRICE_DESC',
+                        text: 'От большего к меньшему'
+                    },
+                    {
+                        type: 'NAME_ASC',
+                        text: 'По наименованию'
+                    }
                 ]
             )
 
@@ -35,8 +51,10 @@
             }
 
 
-            const changeHeader=(e)=>{
-               selected.value=e.target.textContent;
+            const changeSort=(type)=>{
+               const candidate = filterItem.value.find(item => item.type === type);
+               selected.value = candidate ? candidate.text : defaultSelected;
+                emit('changeSort', type)
             }
 
             return{
@@ -44,7 +62,7 @@
                 isActive,
                 filterItem,
                 openFilter,
-                changeHeader
+                changeSort
             }
         }
 
@@ -54,7 +72,7 @@
 
 <style scoped lang="scss">
 
-    @import "assets/mixins/index";
+    @import "../assets/mixins/index";
 
 
     @media only screen and (min-width: 320px) {

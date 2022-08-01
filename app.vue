@@ -3,49 +3,83 @@
 
     <header class="header">
       <div class="header__logo">Добавление товара</div>
-      <UiSelectFilter/>
+      <UiSelectFilter @changeSort="onChangeSort"/>
     </header>
 
     <main class="main-content">
       <UiProductAddForm
         @createProduct="createProduct"
       />
-      <div class="main-content__products">
-        <UiProductCard v-for="(product,index) in cards" :card="product" @product:delete="deleteProduct(index)" v-if="cards.length!==0" />
-        <div v-else class="main-content__no-products">Добавьте товар</div>
+      <div class="main-content__products" v-if="cards.length > 0">
+        <UiProductCard v-for="(product,index) in cards"
+                       :key="index"
+                       :card="product"
+                       @product:delete="deleteProduct(index)"/>
       </div>
+      <em v-else class="main-content__no-products">Список товаров пуст. Добавьте товар</em>
     </main>
   </div>
 </template>
 
 <script>
 
-  import UiProductCard from "./components/UiProductCard";
-  import {onMounted} from ".nuxt/imports";
   export default {
-    components: {UiProductCard},
+
     setup(){
 
       const cards = ref([]);
 
-      const createProduct = (product) =>{
-         cards.value.push(product);
-         localStorage.setItem("cards",JSON.stringify(cards.value));
+      const createProduct = (emitted) =>{
+         cards.value.unshift(emitted.product);
       }
 
       const deleteProduct = (productIndex)=>{
         cards.value.splice(productIndex,1);
-        localStorage.setItem("cards",JSON.stringify(cards.value));
+      }
+
+      const onChangeSort = (type) => {
+        switch (type) {
+          case 'PRICE_ASC':
+            cards.value.sort((a, b) => sortBy(a, b, 'priceForSort', 'asc'))
+            break
+          case 'PRICE_DESC':
+            cards.value.sort((a, b) => sortBy(a, b, 'priceForSort', 'desc'))
+            break
+          case 'NAME_ASC':
+            cards.value.sort((a, b) => sortBy(a, b, 'name', 'asc'))
+            break
+          default:
+            console.warn(`Неизвестный тип сортировки: ${type}`)
+        }
+      }
+
+      const sortBy = (a, b, field, direction) => {
+        if (a[field] < b[field]) {
+          return direction === 'asc' ? -1 : 1;
+        }
+
+        if (a[field] > b[field]) {
+          return direction === 'asc' ? 1 : -1;
+        }
+
+        if (a[field] === b[field]) {
+          return 0
+        }
       }
 
       onMounted(()=>{
-        cards.value=JSON.parse(localStorage.getItem("cards")) || []
+        cards.value = JSON.parse(localStorage.getItem("cards")) || []
       });
+
+      watch(() => [...cards.value], () => {
+        localStorage.setItem("cards", JSON.stringify(cards.value))
+      })
 
       return{
         cards,
         createProduct,
-        deleteProduct
+        deleteProduct,
+        onChangeSort
       }
     }
 
@@ -89,7 +123,7 @@
         font-weight: 600;
         font-size: rem(15);
         line-height: rem(22);
-        opacity: 0.8;
+        opacity: 0.5;
       }
 
       &__products{
@@ -161,8 +195,11 @@
       }
 
       &__no-products{
-        font-size: rem(28);
+        font-size: rem(20);
         line-height: rem(35);
+        height: fit-content;
+        width: 80%;
+        text-align: center;
       }
 
     }

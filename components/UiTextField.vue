@@ -4,7 +4,7 @@
         <input :type="type" class="text-field__input" id="product-input"
                :placeholder="placeholder"
                :value="text"
-               @input="$emit('update:text',$event.target.value)"
+               @input="onInput"
         >
     </div>
 </template>
@@ -31,10 +31,13 @@
 
         emits:['update:text'],
 
-        setup(){
+        setup(props, {emit}){
 
+            const onInput = (event) => {
+                emit('update:text', event.target.value)
+            }
             return{
-
+                onInput
             }
         }
 
@@ -44,7 +47,7 @@
 
 <style scoped lang="scss">
 
-    @import "assets/mixins/index";
+    @import "../assets/mixins/index";
 
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {

@@ -3,8 +3,8 @@
         <img :src="card.src" alt="" class="product-card__image">
         <div class="product-card__content">
             <h4 class="product-card__name">{{card.name}}</h4>
-            <p class="product-card__description">{{card.description}}</p>
-            <p class="product-card__price">{{price}} руб. </p>
+            <span class="product-card__description">{{card.description}}</span>
+            <span class="product-card__price">{{price}} руб. </span>
         </div>
         <button class="product-card__delete-btn" @click="deleteProduct">
             <svg class="product-card__delete-btn-icon" width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +16,6 @@
 
 <script>
 
-
     export default {
         props:{
             card:{
@@ -27,7 +26,9 @@
         setup(props, {emit}) {
 
             const price = computed (()=>{
-               return props.card.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+               return props.card.price
+                   ? props.card.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                   : 0;
             });
 
             const deleteProduct = ()=>{
@@ -46,7 +47,7 @@
 
 <style lang="scss" scoped>
 
-    @import "assets/mixins/index";
+    @import "../assets/mixins/index";
 
     @media only screen and (min-width: 320px) {
 
@@ -61,6 +62,13 @@
             &__content{
                 padding: 0 rem(8);
                 box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                gap: rem(16);
+
+                > span {
+                    word-break: break-word;
+                }
             }
 
             &__image{
@@ -69,14 +77,14 @@
             }
 
             &__name{
-                margin: rem(8) 0 rem(8) 0;
+                margin: rem(16) 0 0 0;
                 font-size: rem(16);
                 line-height: rem(20);
 
             }
 
             &__description{
-                margin-bottom: rem(20);
+                margin-bottom: rem(4);
                 line-height: rem(18);
             }
 
@@ -133,14 +141,13 @@
             }
 
             &__name{
-                margin: rem(16) 0 rem(16) 0;
                 font-size: rem(20);
                 line-height: rem(25);
 
             }
 
             &__description{
-                margin-bottom: rem(32);
+                margin-bottom: rem(16);
             }
 
             &__price{

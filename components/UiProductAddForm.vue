@@ -1,25 +1,29 @@
 <template>
     <form class="add-product-form" action="">
         <UiTextField
-                :label="inputOptions.label='Наименование товара'"
-                :placeholder="inputOptions.placeholder='Введите наименование товара'"
-                :type="inputOptions.type='text'"
+                label="Наименование товара"
+                placeholder="Введите наименование товара"
+                type="text"
                 v-model:text="product.name"
+                @update:text="changeAccomplished"
         />
         <UiTextArea
                 v-model:description="product.description"
+                @update:description="changeAccomplished"
         />
         <UiTextField
-                :label="inputOptions.label='Ссылка на изображение товара'"
-                :placeholder="inputOptions.placeholder='Введите ссылку'"
-                :type="inputOptions.type='text'"
+                label="Ссылка на изображение товара"
+                placeholder="Введите ссылку"
+                type="text"
                 v-model:text="product.src"
+                @update:text="changeAccomplished"
         />
         <UiTextField
-                :label="inputOptions.label='Цена товара'"
-                :placeholder="inputOptions.placeholder='Введите цену'"
-                :type="inputOptions.type='number'"
+                label="Цена товара"
+                placeholder="Введите цену"
+                type="number"
                 v-model:text="product.price"
+                @update:text="changeAccomplished"
         />
         <UiFormBtn :isDisabled="isDisabled" @click.prevent="createNewProduct"/>
 
@@ -30,13 +34,19 @@
 
 <script>
 
-    import {ref} from "../.nuxt/imports";
-
     export default ({
 
         setup: function (props, { emit }){
 
+            const product = ref ({
+                src:"",
+                name:"",
+                description:"",
+                price:''
+            });
+
             const isDisabled = ref (true);
+            const requiredFields = ['src', 'name', 'price']
 
             const accomplished = ref(false);
 
@@ -46,15 +56,19 @@
                     type:''
             });
 
-            const product = ref ({
-                src:"",
-                name:"",
-                description:"",
-                price:''
-            });
+            const changeAccomplished = () =>{
+                accomplished.value=false
+            }
 
             const createNewProduct = ()=>{
-                emit('createProduct',product.value);
+                // клонируем значение, т.к. оно реактивно
+                const cloned = JSON.parse(JSON.stringify(product.value))
+
+                cloned.priceForSort = parseFloat(cloned.price.match(/\d+/g).join(''));
+
+                emit('createProduct', {
+                    product: cloned
+                });
 
                 product.value.src='';
                 product.value.name='';
@@ -64,21 +78,16 @@
                 accomplished.value = true;
             };
 
-            const onFormInputs = ()=>{
-                if(product.value.name.length>0 && product.value.src.length>0 && product.value.price>0 ){
-                    isDisabled.value=false;
-                }else{
-                    isDisabled.value=true;
-                }
-            };
-
-            watch (product.value, onFormInputs,{deep:true})
+            watch(product.value, () => {
+                isDisabled.value = Object.entries(product.value).some((entry) => requiredFields.includes(entry[0]) && !entry[1])
+            })
 
             return{
                 isDisabled,
                 product,
                 inputOptions,
                 accomplished,
+                changeAccomplished,
                 createNewProduct
             }
 
@@ -88,7 +97,7 @@
 
 <style scoped lang="scss">
 
-    @import "assets/mixins/index";
+    @import "../assets/mixins/index";
 
     @media only screen and (min-width: 320px) {
         .add-product-form {
@@ -113,7 +122,6 @@
         .add-product-form .text-field:not(:first-child) {
             margin-top: 1em
         }
-
 
     }
 
